@@ -1,6 +1,6 @@
 import React from "react";
 
-function Chatbot() {
+function Chatbot({ toggleChatbot }) {
   return (
     <>
       <div
@@ -9,13 +9,21 @@ function Chatbot() {
       >
         {/* chatbot headerdiv */}
         <div className="border-b-2 px-2 py-4">
-          <div className="inline-flex items-center">
-            <img
-              src="https://fff4growth.com/wp-content/uploads/2024/08/DarkerCoolor.png"
-              alt="logo"
-              className="w-20"
-            />
-            <span className="ml-8 font-bold">FFF Growth </span>
+          <div className="flex justify-between items-center">
+            <div className="flex items-center ">
+              <img
+                src="https://fff4growth.com/wp-content/uploads/2024/08/DarkerCoolor.png"
+                alt="logo"
+                className="w-20"
+              />
+              <span className="ml-8 font-bold">FFF Growth </span>
+            </div>
+            <button
+              className="btn btn-rounded align mr-2"
+              onClick={toggleChatbot}
+            >
+              <i className="fas fa-times" />
+            </button>
           </div>
         </div>
         {/* chatbot body div */}

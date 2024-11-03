@@ -4,6 +4,7 @@ import Chatbot from "./Chatbot";
 
 function App() {
   const [isChatbotOpen, setIsChatbotOpen] = useState(false);
+  const [isButtonHovered, setIsButtonHovered] = useState(false);
 
   const toggleChatbot = () => {
     setIsChatbotOpen((prev) => !prev);
@@ -40,21 +41,31 @@ function App() {
         </div>
       </div>
       {/* Container for the chatbot and button */}
+      {/* <div className="fixed bottom-4 right-4 flex flex-col items-end  bg-white rounded-full p-5"> */}
+      {/* Conditionally render the Chatbot above the button */}
       <div className="fixed bottom-4 right-4 flex flex-col items-end">
-        {/* Conditionally render the Chatbot above the button */}
         {isChatbotOpen && (
-          <div className="mb-4 z-10">
-            <Chatbot />
+          <div className="mb-4 z-20">
+            <Chatbot toggleChatbot={toggleChatbot} />
           </div>
         )}
 
         {/* Button to toggle the chatbot */}
-        <button
-          onClick={toggleChatbot}
-          className="bg-blue-500 text-white px-4 py-2 rounded z-20"
-        >
-          {isChatbotOpen ? "Close Chat" : "Open Chat"}
-        </button>
+        {!isChatbotOpen && (
+          <button
+            onClick={toggleChatbot}
+            onMouseEnter={() => setIsButtonHovered(true)}
+            onMouseLeave={() => setIsButtonHovered(false)}
+            className="fixed right-2 bottom-4  text-white bg-white p-5 rounded-full hover:transition duration-200 z-10"
+          >
+            <i
+              className={`fas ${
+                isButtonHovered ? "fa-pen" : "fa-comment-dots"
+              } fa-xl text-black transition-all duration-1000`}
+            ></i>
+          </button>
+        )}
+        {/* </div> */}
       </div>
     </>
   );
