@@ -1,6 +1,56 @@
-import React from "react";
+import React, { useState } from "react";
 
 function Chatbot({ toggleChatbot }) {
+  const [messages, setMessages] = useState([
+    { role: "assistant", content: "Hello I am Rose from FFFFoverer" },
+  ]);
+  const [userMessage, setUserMessage] = useState("");
+  const sendMessage = async () => {
+    if (!userMessage.trim()) return;
+
+    const newMessages = [...messages, { role: "user", content: userMessage }];
+    setMessages(newMessages);
+
+    try {
+      const response = await fetch("http://localhost:5000/api/chat", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          message: userMessage,
+          conversation: newMessages,
+        }),
+      });
+      const data = await response.json();
+      if (response.ok) {
+        // Append bot response
+        setMessages((prevMessages) => [
+          ...prevMessages,
+          { role: "assistant", content: data.message },
+        ]);
+      } else {
+        console.error(data.error);
+        setMessages((prevMessages) => [
+          ...prevMessages,
+          { role: "assistant", content: "Sorry, something went wrong." },
+        ]);
+      }
+    } catch (error) {
+      console.error("Error:", error);
+      setMessages((prevMessages) => [
+        ...prevMessages,
+        { role: "assistant", content: "Unable to connect to server." },
+      ]);
+    }
+    console.log({
+      message: userMessage,
+      conversation: newMessages,
+    });
+
+    //clears input
+    setUserMessage("");
+  };
   return (
     <>
       <div
@@ -26,38 +76,45 @@ function Chatbot({ toggleChatbot }) {
             </button>
           </div>
         </div>
-        {/* chatbot body div */}
-        <div className="h-80 flex flex-col max-w-md px-2 mb-2 mt-2">
-          {/* chatbot text */}
-          <div className=" flex flex-col mt-4 space-y-2 text-center">
-            <span className="text-gray-600 text-sm">
-              Chat started at 8:23 AM{" "}
-            </span>
-          </div>
-          <div className="flex flex-col space-y-4 items-start">
-            <span className="bg-blue-500 px-2 py-4 rounded-tl-xl rounded-b-xl mb-2 mt-4 text-white">
-              Hi how are you Hi how are you Hi how are youv
-            </span>
-          </div>
-          {/* chatbot user text */}
-          <div className="flex flex-col items-end ml-6">
-            <span className="bg-gray-200 px-2 py-4  mb-2 mt-2 rounded-b-xl rounded-tr-xl text-black">
-              I need a ticketI a ticket Hi how are you Hi how are you Hi how are
-              youv a ticketI a ticket Hi how are you Hi how are you Hi how are
-              youv
-            </span>
-          </div>
+        {/* Chatbot Body */}
+        <div className="h-80 flex flex-col max-w-md px-2 mb-2 mt-2 overflow-y-auto">
+          {messages.map((msg, index) => (
+            <div
+              key={index}
+              className={`flex ${
+                msg.role === "user" ? "justify-end" : "justify-start"
+              } mb-2`}
+            >
+              {msg.role === "assistant" && (
+                <img
+                  src="https://images.unsplash.com/photo-1727160930825-97245483a509?q=80&w=987&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                  alt="assistant"
+                  className="h-10 w-10 rounded-full mr-2 object-cover object-top "
+                />
+              )}
+              <span
+                className={`px-4 py-2 rounded-lg ${
+                  msg.role === "user"
+                    ? "bg-gray-200 text-black"
+                    : "bg-blue-500 text-white"
+                }`}
+              >
+                {msg.content}
+              </span>
+            </div>
+          ))}
         </div>
 
         {/* chatbot footer div */}
         <div className="border-t-2 flex items-center py-4 px-2">
           <textarea
-            type="text"
+            value={userMessage}
+            onChange={(e) => setUserMessage(e.target.value)}
             placeholder="Chat with us.."
             className="flex-1 rounded-lg px-4 py-2 border-2 mr-2 outline-none"
           ></textarea>
           <button
-            type="submit"
+            onClick={sendMessage}
             className="bg-black py-2 text-white px-2 rounded"
           >
             Send
