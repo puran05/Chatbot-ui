@@ -1,0 +1,32 @@
+{
+  "company_overview": "FFForever Web Agency specializes in enhancing the online presence of contracting businesses through tailored web design and digital marketing solutions. Their services are designed to attract more leads, increase booked jobs, and boost revenue for contractors.",
+  "services_offered": [
+    {
+      "name": "Web Development",
+      "description": "Creation of high-converting websites that capture attention and convert visitors into booked appointments."
+    },
+    {
+      "name": "Search Engine Optimization (SEO)",
+      "description": "Optimization of websites to rank higher on search engines, bringing more organic traffic and converting visitors into paying customers."
+    },
+    {
+      "name": "Content Marketing",
+      "description": "Development of high-quality, compelling content that resonates with the target audience and drives action."
+    },
+    {
+      "name": "Pay-Per-Click (PPC) Advertising",
+      "description": "Management of Google Ads and local search optimization to ensure visibility at the top of local searches."
+    }
+  ],
+  "faqs": [
+    {
+      "question": "What industries does FFForever Web Agency specialize in?",
+      "answer": "FFForever Web Agency specializes in the contracting industry, offering services tailored to businesses involved in installations, repairs, and maintenance."
+    },
+    {
+      "question": "How does FFForever ensure my website is mobile-friendly?",
+      "answer": "They adopt a mobile-first design approach, ensuring the website looks stunning and converts effortlessly on mobile devices, as 70% of customers view websites on their phones."
+    }
+  ],
+  "details": "FFForever is a web agency specializing in providing SEO, web design, and digital marketing services to the contracting industry. Their goal is to help contractors grow their businesses through an enhanced online presence."
+}

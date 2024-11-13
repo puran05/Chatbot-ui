@@ -1,9 +1,7 @@
 import React, { useState } from "react";
 
 function Chatbot({ toggleChatbot }) {
-  const [messages, setMessages] = useState([
-    { role: "assistant", content: "Hello I am Rose from FFFFoverer" },
-  ]);
+  const [messages, setMessages] = useState([]);
   const [userMessage, setUserMessage] = useState("");
   const sendMessage = async () => {
     if (!userMessage.trim()) return;
